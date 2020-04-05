@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="500"
+   height="500"
+   viewBox="0 0 500.00001 500.00001"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="WAPI-logo-green-line.svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient4151"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#4e9525;stop-opacity:1;"
+         offset="0"
+         id="stop4153" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4151"
+       id="linearGradient4155"
+       x1="279.31223"
+       y1="742.75049"
+       x2="613.6626"
+       y2="742.75049"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.4571825,0,0,1.4376942,-400.15618,-266.34454)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="287.35402"
+     inkscape:cy="270.40908"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1013"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-552.36216)">
+    <ellipse
+       style="fill:#4e9525;fill-opacity:0;stroke:url(#linearGradient4155);stroke-width:13.02664948;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3347"
+       cx="250.4574"
+       cy="801.50354"
+       rx="242.87613"
+       ry="243.25865" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#4e9525;stroke-width:13.02664948;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 95.268966,643.21604 c 0,0 -34.427528,212.66504 136.213324,177.22087 0,0 41.06418,15.58582 4.26253,92.35469 0,0 -57.15627,89.2641 0.47243,131.2184 l 31.98503,-0.1457 c 0,0 -68.90229,-25.2293 -8.27986,-130.83851 0,0 35.14119,-61.27489 1.4621,-93.82568 0,0 122.02799,65.61502 179.65668,-127.51959 0,0 -41.91177,19.53045 -89.06254,23.14722 -47.15076,3.61675 -87.56569,48.46449 -100.28892,79.56856 0,0 27.6917,-98.37569 -82.32671,-123.69296 0,0 -69.603511,-14.46699 -74.094064,-27.4873 z"
+       id="path4159"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccccsccc" />
+  </g>
+</svg>
