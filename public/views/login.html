@@ -28,13 +28,34 @@
             margin-top: 7em;
             width: 400px;
         }
+
+         /* width */
+         ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            border-radius: 20px;
+            background: #f1f1f1; 
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            border-radius: 20px;
+            background: #4e9525; 
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #326415; 
+        }
     </style>
 </head>
 
 <body>
     <!-- NAVIGATION BAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top ftco_navbar bg-dark ftco-navbar-light"
-        style="background: green;" id="ftco-navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container-fluid">
             <div class="col-6 text-justify">
                 <a class="navbar-brand m-auto" href="index.html">

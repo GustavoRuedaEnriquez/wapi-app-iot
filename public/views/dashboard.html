@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Dashboard | WAPI</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            border-radius: 20px;
+            background: #f1f1f1; 
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            border-radius: 20px;
+            background: #4e9525; 
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #326415; 
+        }
+
+        footer {
+            height: 63px;
+            background-image: url("images/WAPI-dashboard-footer.svg");
+            background-repeat: repeat-x;
+        }
+
+        #scrollable-div {
+            width: 100%;
+            height: 300px;
+            overflow: scroll;
+            overflow-x: hidden;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container-fluid">
+            <div class="col-6 text-justify">
+                <a class="navbar-brand m-auto" href="#">
+                    <img class="rounded-circle" src="./images/WAPI-logo-white-filled.svg" style="width: 30px; height: 30px;" alt="test">
+                    WAPI
+                </a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa fa-bars"></span> Menú
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="ftco-nav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active"><a href="#" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="login.html" class="nav-link">Histórico</a></li>
+                    <li class="nav-item"><a href="login.html" class="nav-link">Mi red</a></li>
+                    <li class="nav-item"><a href="login.html" class="nav-link">Salir</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END OF NAVIGATION BAR -->
+
+    <div class="container m-auto">
+        <h2 style="margin-top: 100px;margin-left: 30px;">Bienvenido</h2>
+        <div class="row">
+            <!-- STATUS SIDE -->
+            <div class="col-lg-8 d-flex align-self-stretch ftco-animate">
+                <div class="media block-6 services d-flex align-items-start">
+                    <!-- IMAGE PART -->
+                    <div id=" status-message" class="text-center col-7">
+                        <h4>¡Todo en orden!</h4>
+                        <img id="status-images" src="./images/WAPI-dashboard-ok.svg" style="width: 80%;">
+                    </div>
+                    <!-- END OF IMAGE PART -->
+                    <!-- LATEST DATA PART -->
+                    <div id="status-data" class="col-5">
+                        <h4><strong>Últimos datos</strong></h4>
+                        <p><span class="flaticon-lamp" style="font-size: 25px;"></span>Luminosidad: <strong id="dashboard-latest-luminosity">45 LUMENS</strong></p>
+                        <p><span class="flaticon-humidity" style="font-size: 25px;"></span>&nbsp Humedad del suelo: <strong id="dashboard-latest-inner-humidity">82%</strong></p>
+                        <p><span class="flaticon-humidity" style="font-size: 25px;"></span>&nbsp Humedad ambiental: <strong id="dashboard-latest-outer-humidity">82%</strong></p>
+                        <p><span class="flaticon-heat" style="font-size: 25px;"></span>Temp. del suelo: <strong id="dashboard-latest-inner-temperature">24°C</strong></p>
+                        <p><span class="flaticon-heat" style="font-size: 25px;"></span>Temp. ambiental: <strong id="dashboard-latest-outer-temperature">30°C</strong></p>
+                    </div>
+                    <!-- END OF LATEST DATA PART -->
+                </div>
+            </div>
+            <!-- END OF STATUS SIDE -->
+            <!-- SUGGESTIONS -->
+            <div class="col-lg-4 d-flex align-self-stretch ftco-animate">
+                <div class="media block-6 services d-flex align-items-start">
+                    <div class="row">
+                        <div class="col-12 text-center" style="padding-bottom: 15px;">
+                            <h4>Acciones recomendadas</h4>
+                        </div>
+                        <div id="scrollable-div" class="col-12 m-auto">
+                            <p>Acciones recomendadas 1</p>
+                            <hr>
+                            <p>Acciones recomendadas 2</p>
+                            <hr>
+                            <p>Acciones recomendadas 3</p>
+                            <hr>
+                            <p>Acciones recomendadas 4</p>
+                            <hr>
+                            <p>Acciones recomendadas 5</p>
+                            <hr>
+                            <p>Acciones recomendadas 6</p>
+                            <hr>
+                            <p>Acciones recomendadas 7</p>
+                            <hr>
+                            <p>Acciones recomendadas 8</p>
+                            <hr>
+                            <p>Acciones recomendadas 9</p>
+                            <hr>
+                            <p>Acciones recomendadas 10</p>
+                            <hr>
+                            <p>Acciones recomendadas 11</p>
+                            <hr>
+                            <p>Acciones recomendadas 12</p>
+                            <hr>
+                            <p>Acciones recomendadas 13</p>
+                            <hr>
+                            <p>Acciones recomendadas 14</p>
+                            <hr>
+                            <p>Acciones recomendadas 15</p>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END OF SUGGESTIONS -->
+        </div>
+
+        <!-- MEASURES DATE -->
+        <div class="row m-auto ftco-animate" style="padding-bottom: 100px;">
+            <p>*Datos <strong>promediados</strong> obtenidos el &nbsp<p id="measure-date">10 de Abril a las 10:34:00</p></p>
+        </div>
+        <!-- END OF MEASURES DATE-->
+    </div>
+    
+
+    <!-- FOOTER -->
+    <footer class="fixed-bottom">
+        &nbsp
+    </footer>
+    <!-- END OF FOOTER -->
+
+    <!--<script src="../scripts/login.js"></script>-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false">
+    </script>
+    <script src="js/google-map.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
