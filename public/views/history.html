@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <script type="text/javascript" src="../scripts/test.js"></script>
+    <script type="text/javascript" src="../scripts/canvasjs.min.js"></script>
+
+    <title>Historial | WAPI</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .square {
+            border: 1px solid black;
+        }
+
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            border-radius: 20px;
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            border-radius: 20px;
+            background: #4e9525;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #326415;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container-fluid">
+            <div class="col-6 text-justify">
+                <a class="navbar-brand m-auto" href="#">
+                    <img class="rounded-circle" src="./images/WAPI-logo-white-filled.svg"
+                        style="width: 30px; height: 30px;" alt="test">
+                    WAPI
+                </a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa fa-bars"></span> Menú
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="ftco-nav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link">Inicio</a></li>
+                    <li class="nav-item active"><a href="#" class="nav-link">Histórico</a></li>
+                    <li class="nav-item"><a href="login.html" class="nav-link">Mi red</a></li>
+                    <li class="nav-item"><a href="login.html" class="nav-link">Salir</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END OF NAVIGATION BAR -->
+
+
+    <div class="container m-auto" style="max-width: 100% !important; padding-left: 30px; padding-right: 30px;">
+        <h1 style="margin-top: 75px;">Histórico</h1>
+        <div class="row">
+            <!-- CHART PART -->
+            <div class="col-lg-9 services d-flex align-self-stretch ftco-animate" style="min-width: 50px; height: 540px; margin-left:auto; margin-right: auto;">
+                <div id="chartContainer" style="width: 100%;"></div>
+            </div>
+            <!-- END OF CHART PART -->
+            <div class="col-lg-3 d-flex align-self-stretch ftco-animate" style="height: 400px;">
+                <div class="container">
+                    <!-- DATA SELECTION -->
+                    <div class="row"  style="width:100%; margin-left: auto; margin-right: auto; height: 250px;">
+                        <div class="col-12 media block-6 services d-flex align-items-start"">
+                            <div class="row m-auto">
+                                <div class="text-center" style="width: 100%;">
+                                    <h5>DATOS</h5>
+                                </div>
+                                <div style="margin: auto;">
+                                    <form id="historic-form">
+                                        <input type="checkbox" id="luminosity" name="luminosity" value="Luminosidad" checked>
+                                        <label for="luminosity">Luminosidad</label><br>
+                                        <input type="checkbox" id="inner_temperature" name="inner_temperature" value="inner_temperature" checked>
+                                        <label for="inner_temperature"> Temperatura del suelo</label><br>
+                                        <input type="checkbox" id="outer_temperature" name="outer_temperature" value="outer_temperature" checked>
+                                        <label for="outer_temperature">Temperatura ambiental</label><br>
+                                        <input type="checkbox" id="inner_humidity" name="inner_humidity" value="inner_humidity" checked>
+                                        <label for="inner_humidity">Humedad del suelo</label><br>
+                                        <input type="checkbox" id="outer_humidity" name="outer_humidity" value="outer_humidity" checked>
+                                        <label for="outer_humidity">Humedad ambiental</label><br>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END OF DATA SELECTION -->
+                    <!-- DATE SELECTION -->
+                    <div class="row"  style="width:100%; margin-left: auto; margin-right: auto; height: 200px; margin-top: 30px;">
+                        <div class="media block-6 services d-flex align-items-start""> 
+                            <div class="row m-auto">
+                                <div class="text-center" style="width: 100%;">
+                                    <h5>VISTA</h5>
+                                </div>
+                                <div style="margin: auto;">
+                                    <form id="historic-form">
+                                        <input type="radio" name="date" value="day" checked> Por día<br>
+                                        <input type="radio" name="date" value="week"> Por semana<br>
+                                        <input type="radio" name="date" value="month"> Por mes<br>
+                                        <input type="radio" name="date" value="year"> Por año<br>
+                                    </form>
+                                </div>
+                                <div class="m-auto">
+                                    <button class="btn btn-primary" type="submit" form="historic-form" style="margin: auto;">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END OF DATE SELECTION -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="js/google-map.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
