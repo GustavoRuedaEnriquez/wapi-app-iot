@@ -1378,7 +1378,7 @@ pre {
   background-color: rgba(0, 0, 0, 0.05); }
 
 .table-hover tbody tr:hover {
-  background-color: rgba(0, 0, 0, 0.075); }
+  background-color: rgba(15, 179, 43, 0.3); }
 
 .table-primary,
 .table-primary > th,

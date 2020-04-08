@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Mi red | WAPI</title>
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        th[scope="col"] {
+            background-color: #4e9525F0 !important;
+            color: white;
+            font-weight: normal;
+        }
+        
+        .square {
+            border: 1px solid black;
+        }
+
+        .date{
+            position: fixed;
+            bottom: 0;
+            right: 5px;
+            background-color: white;
+        }
+
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            border-radius: 20px;
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            border-radius: 20px;
+            background: #4e9525;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #326415;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container-fluid">
+            <div class="col-6 text-justify">
+                <a class="navbar-brand m-auto" href="dashboard.html">
+                    <img class="rounded-circle" src="./images/WAPI-logo-white-filled.svg"
+                        style="width: 30px; height: 30px;" alt="test">
+                    WAPI
+                </a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa fa-bars"></span> Menú
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="ftco-nav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="history.html" class="nav-link">Histórico</a></li>
+                    <li class="nav-item active"><a href="#" class="nav-link">Mi red</a></li>
+                    <li class="nav-item"><a href="login.html" class="nav-link">Salir</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END OF NAVIGATION BAR -->
+
+
+    <div class="container" style="max-width:100% !important;padding-left: 50px; padding-right: 50px;margin-bottom: 100px;">
+        <h1 style="margin-top: 75px;">Mi Red</h1>
+        <div class="row">
+            <!-- TABLE PART -->
+            <div class="col-lg-9 ftco-animate">
+                <div class="col-lg-12">
+
+                    <!-- DUMMY TABLE -->
+                    <table id="network-table" class="table table-bordered table-hover table-striped text-center">
+                        <thead>
+                          <tr>
+                            <th scope="col">Monitor</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Luminosidad</th>
+                            <th scope="col">Temp. del suelo</th>
+                            <th scope="col">Temp. ambiental</th>
+                            <th scope="col">Humedad del suelo</th>
+                            <th scope="col">Humedad ambiental</th>
+                          </tr>
+                        </thead>
+                        <tbody id="network-table-body">
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>En línea</td>
+                            <td>34 LUMENS</td>
+                            <td>24° C</td>
+                            <td>32° C</td>
+                            <td>70%</td>
+                            <td>63%</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>En línea</td>
+                            <td>34 LUMENS</td>
+                            <td>24° C</td>
+                            <td>32° C</td>
+                            <td>70%</td>
+                            <td>63%</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>En línea</td>
+                            <td>34 LUMENS</td>
+                            <td>24° C</td>
+                            <td>32° C</td>
+                            <td>70%</td>
+                            <td>63%</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">4</th>
+                            <td>En línea</td>
+                            <td>34 LUMENS</td>
+                            <td>24° C</td>
+                            <td>32° C</td>
+                            <td>70%</td>
+                            <td>63%</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">5</th>
+                            <td>En línea</td>
+                            <td>34 LUMENS</td>
+                            <td>24° C</td>
+                            <td>32° C</td>
+                            <td>70%</td>
+                            <td>63%</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">6</th>
+                            <td>En línea</td>
+                            <td>34 LUMENS</td>
+                            <td>24° C</td>
+                            <td>32° C</td>
+                            <td>70%</td>
+                            <td>63%</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">7</th>
+                            <td>En línea</td>
+                            <td>34 LUMENS</td>
+                            <td>24° C</td>
+                            <td>32° C</td>
+                            <td>70%</td>
+                            <td>63%</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">8</th>
+                            <td>En línea</td>
+                            <td>34 LUMENS</td>
+                            <td>24° C</td>
+                            <td>32° C</td>
+                            <td>70%</td>
+                            <td>63%</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">9</th>
+                            <td>En línea</td>
+                            <td>34 LUMENS</td>
+                            <td>24° C</td>
+                            <td>32° C</td>
+                            <td>70%</td>
+                            <td>63%</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">10</th>
+                            <td>En línea</td>
+                            <td>34 LUMENS</td>
+                            <td>24° C</td>
+                            <td>32° C</td>
+                            <td>70%</td>
+                            <td>63%</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">11</th>
+                            <td>En línea</td>
+                            <td>34 LUMENS</td>
+                            <td>24° C</td>
+                            <td>32° C</td>
+                            <td>70%</td>
+                            <td>63%</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">12</th>
+                            <td>En línea</td>
+                            <td>34 LUMENS</td>
+                            <td>24° C</td>
+                            <td>32° C</td>
+                            <td>70%</td>
+                            <td>63%</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">13</th>
+                            <td>En línea</td>
+                            <td>34 LUMENS</td>
+                            <td>24° C</td>
+                            <td>32° C</td>
+                            <td>70%</td>
+                            <td>63%</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">14</th>
+                            <td>En línea</td>
+                            <td>34 LUMENS</td>
+                            <td>24° C</td>
+                            <td>32° C</td>
+                            <td>70%</td>
+                            <td>63%</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">15</th>
+                            <td>En línea</td>
+                            <td>34 LUMENS</td>
+                            <td>24° C</td>
+                            <td>32° C</td>
+                            <td>70%</td>
+                            <td>63%</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">10</th>
+                            <td>En línea</td>
+                            <td>34 LUMENS</td>
+                            <td>24° C</td>
+                            <td>32° C</td>
+                            <td>70%</td>
+                            <td>63%</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    <!-- DUMMY TABLE -->
+
+                </div>
+            </div>
+            <!-- END OF TABLE PART -->
+            <div class="col-lg-3 services ftco-animate" style="height: 400px;">
+                <div class="text-center" style="width: 100%;">
+                    <h5>RECOMENDACIONES</h5>
+                    <p>
+                        Si alguno de tus sensores está desconectado, trata de
+                        verificar que la señal 2G llegue a esa parte de
+                        terreno.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div id="capture-date" class="date">
+        *Datos capturados el 10 de Abril a las 10:43:00
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="js/google-map.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
