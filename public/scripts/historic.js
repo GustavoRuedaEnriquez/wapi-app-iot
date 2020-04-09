@@ -1,3 +1,6 @@
+'use strict'
+let network = {};
+
 const LUMINOSITY_COLOR = "#039114";
 const TEMP_OUTER_COLOR = "#d91d0f";
 const TEMP_INNER_COLOR = "#d67922";
@@ -120,7 +123,7 @@ let chart = new CanvasJS.Chart("chartContainer", {
         interval: 1
     },
     axisY: {
-        title: "(°C/%/LUMENS)",
+        title: "(°C/%/Luxes)",
         maximum: 100,
         lineColor: "#000000",
         titleFontColor: "#000000",
@@ -157,3 +160,22 @@ outer_humidity_checkbox.addEventListener('change', function (e) {
     outer_humidity.visible = outer_humidity_checkbox.checked;
     chart.render();
 });
+
+function updateHTML(sessionUser){
+    let select = document.getElementById('monitors');
+    let option;
+    for(let i = 1; i <= sessionUser.monitors_num; i++){
+        option = document.createElement('option');
+        option.appendChild(document.createTextNode(`Monitor ${i}`));
+        option.value = `${i}`;
+        select.append(option);
+    }
+}
+
+function init(){
+    let sessionUser = JSON.parse(sessionStorage.getItem("session-user"));
+    updateHTML(sessionUser);
+    //calculateStatistics();
+}
+
+init();
