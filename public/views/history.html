@@ -2,7 +2,9 @@
 <html lang="en">
 
 <head>
-    <script type="text/javascript" src="../scripts/canvasjs.min.js"></script>
+    <script type="text/javascript" src="../scripts/libraries/canvasjs.min.js"></script>
+    <script type="text/javascript" src="../scripts/libraries/moment.min.js"></script>
+
     <title>Historial | WAPI</title>
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
     
@@ -139,7 +141,7 @@
                                     </form>
                                 </div>
                                 <div class="m-auto">
-                                    <button class="btn btn-primary" type="submit" form="historic-form" style="margin: auto;">Buscar</button>
+                                    <button class="btn btn-primary" type="button" onclick="customQuery()" form="historic-form" style="margin: auto;">Buscar</button>
                                 </div>
                             </div>
                         </div>
@@ -151,6 +153,7 @@
     </div>
 
     <script type="text/javascript" src="../scripts/historic.js"></script>
+
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
     <script src="js/popper.min.js"></script>
