@@ -4,6 +4,7 @@
 <head>
     <script type="text/javascript" src="../scripts/libraries/canvasjs.min.js"></script>
     <script type="text/javascript" src="../scripts/libraries/moment.min.js"></script>
+    <script type="text/javascript" src="../scripts/libraries/stringUtilities.js"></script>
 
     <title>Historial | WAPI</title>
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
@@ -31,6 +32,16 @@
 
         .square {
             border: 1px solid black;
+        }
+
+        .error-message {
+            padding-top: 30px;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
         }
 
         /* width */
@@ -91,6 +102,7 @@
         <div class="row">
             <!-- CHART PART -->
             <div class="col-lg-9 services d-flex align-self-stretch ftco-animate" style="min-width: 50px; height: 540px; margin-left:auto; margin-right: auto;">
+                <div id="error-message" class="error-message m-auto text-center"></div>
                 <div id="chartContainer" style="width: 100%;"></div>
             </div>
             <!-- END OF CHART PART -->

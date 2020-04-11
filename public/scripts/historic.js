@@ -1,20 +1,18 @@
 'use strict'
 
 let sessionUser = JSON.parse(sessionStorage.getItem("session-user"));
+let errorDiv = document.getElementById("error-message");
 
 let timeMeasure = "day";
 let monitorSelected = "all";
-
 let start = 0;
 let end = 0;
 let startTimestamp = 0;
 let endTimestamp = 0;
-
 let numOfSamples = 0
 let interval = 0;
 
 const AWS_BASE_URL = "https://cyt189a497.execute-api.us-east-1.amazonaws.com/prod";
-
 const LUMINOSITY_COLOR = "#039114";
 const TEMP_OUTER_COLOR = "#d91d0f";
 const TEMP_INNER_COLOR = "#d67922";
@@ -42,61 +40,70 @@ let luminosity = {
     type: "line",
     name: "Luminosidad",
     color: LUMINOSITY_COLOR,
+    lineThickness: 4,
+    markerSize: 10,
     toolTipContent: `<span style="color:${LUMINOSITY_COLOR};margin=0px; padding=0px;">Luminosidad: {y} LUMENS</span>`,
     dataPoints: luminosity_datapoints
 };
-
 let inner_temperature = {
     visible: inner_temperature_checkbox.checked,
     xValueType: "dateTime",
     type: "line",
     name: "Temp. suelo",
     color: TEMP_INNER_COLOR,
+    lineThickness: 4,
+    markerSize: 10,
     toolTipContent: `<span style="color:${TEMP_INNER_COLOR};margin=0px; padding=0px;">Temp. suelo: {y} °C</span>`,
     dataPoints: inner_temperature_datapoints
 }
-
 let outer_temperature = {
     visible: outer_temperature_checkbox.checked,
     xValueType: "dateTime",
     type: "line",
     name: "Temp. ambiental",
     color: TEMP_OUTER_COLOR,
+    lineThickness: 4,
+    markerSize: 10,
     toolTipContent: `<span style="color:${TEMP_OUTER_COLOR}">Temp. ambiental: {y} °C</span>`,
     dataPoints: outer_temperature_datapoints
 }
-
 let inner_humidity = {
     visible: inner_humidity_checkbox.checked,
     xValueType: "dateTime",
     type: "line",
     name: "H. suelo",
     color: HUMIDITY_INNER_COLOR,
+    lineThickness: 4,
+    markerSize: 10,
     toolTipContent: `<span style="color:${HUMIDITY_INNER_COLOR}">H. suelo: {y}%</span>`,
     dataPoints: inner_humidity_datapoints
 }
-
 let outer_humidity = {
     visible: outer_humidity_checkbox.checked,
     xValueType: "dateTime",
     type: "line",
     name: "H. ambiental",
     color: HUMIDITY_OUTER_COLOR,
+    lineThickness: 4,
+    markerSize: 10,
     toolTipContent: `<span style="color:${HUMIDITY_OUTER_COLOR}">H. ambiental: {y}%</span>`,
     dataPoints: outer_humidity_datapoints
 }
-
 let chart = new CanvasJS.Chart("chartContainer", {
+    title: {
+        text: "Chart"
+    },
+
     toolTip: {
         shared: true
     },
-
-    axisX:{
+    axisX: {
         interval: 1,
-        intervalType : "hour",
-        valueFormatString: format
+        intervalType: "hour",
+        valueFormatString: format,
+        minimum: 0,
+        maximum: 0
     },
-
     axisY: {
         title: "(°C/%/Luxes)",
         maximum: 150,
@@ -107,26 +114,23 @@ let chart = new CanvasJS.Chart("chartContainer", {
     data: [luminosity, inner_temperature, outer_temperature, inner_humidity, outer_humidity]
 });
 
+/* Event listeners for the display of the lines */
 luminosity_checkbox.addEventListener('change', function (e) {
     luminosity.visible = luminosity_checkbox.checked;
     chart.render();
 });
-
 inner_temperature_checkbox.addEventListener('change', function (e) {
     inner_temperature.visible = inner_temperature_checkbox.checked;
     chart.render();
 });
-
 outer_temperature_checkbox.addEventListener('change', function (e) {
     outer_temperature.visible = outer_temperature_checkbox.checked;
     chart.render();
 });
-
 inner_humidity_checkbox.addEventListener('change', function (e) {
     inner_humidity.visible = inner_humidity_checkbox.checked;
     chart.render();
 });
-
 outer_humidity_checkbox.addEventListener('change', function (e) {
     outer_humidity.visible = outer_humidity_checkbox.checked;
     chart.render();
@@ -173,11 +177,11 @@ function calculateEPOCHRange(timeMeasure) {
     end = moment().endOf(timeMeasure);
     startTimestamp = start.valueOf();
     endTimestamp = end.valueOf();
-    /* RECALCULATE INTERVALS AND FORMATS  */
+    /* Recalculate intervals, formats and number of samples */
     switch (timeMeasure) {
         case "day":
             numOfSamples = getHoursSamples(sessionUser);
-            interval = sessionUser.sample_frequency / 60;
+            interval = 1;
             format = "HH:mm";
             intervalType = "hour";
             break;
@@ -286,39 +290,34 @@ function getAverageDataForAllMonitors(data, numOfSamples) {
         temp = obtainMatchingTimestampArray(data);
         //console.log(`data: ${JSON.stringify(data)}`);
         //console.log(`temp: ${JSON.stringify(temp)}`);
-        for (let j = 0; j < sessionUser.monitors_num; j++) {
-            tempObject = temp.find(a => a.sensor_id == j + 1);
-            //console.log(tempObject);
-            if (tempObject == undefined) {
-                disconnectedMonitors = disconnectedMonitors + 1;
-            } else {
-                luminosityCount = luminosityCount + tempObject.luminosity;
-                innerHumidityCount = innerHumidityCount + tempObject.inner_humidity;
-                outerHumidityCount = outerHumidityCount + tempObject.outer_humidity;
-                innerTemperatureCount = innerTemperatureCount + tempObject.inner_temp;
-                outerTemperatureCount = outerTemperatureCount + tempObject.outer_temp;
-            }
+        for (let j = 0; j < temp.length; j++) {
+            tempObject = temp[j];
+            luminosityCount = luminosityCount + tempObject.luminosity;
+            innerHumidityCount = innerHumidityCount + tempObject.inner_humidity;
+            outerHumidityCount = outerHumidityCount + tempObject.outer_humidity;
+            innerTemperatureCount = innerTemperatureCount + tempObject.inner_temp;
+            outerTemperatureCount = outerTemperatureCount + tempObject.outer_temp;
         }
-        if (disconnectedMonitors < sessionUser.monitors_num) {
+        if (temp.length > 0) {
             datapointsArray.luminosity.push({
                 x: temp[0].data_id,
-                y: (luminosityCount / (sessionUser.monitors_num - disconnectedMonitors))
+                y: (luminosityCount / temp.length)
             });
             datapointsArray.innerHumidity.push({
                 x: temp[0].data_id,
-                y: (innerHumidityCount / (sessionUser.monitors_num - disconnectedMonitors))
+                y: (innerHumidityCount / temp.length)
             });
             datapointsArray.outerHumidity.push({
                 x: temp[0].data_id,
-                y: (outerHumidityCount / (sessionUser.monitors_num - disconnectedMonitors))
+                y: (outerHumidityCount / temp.length)
             });
             datapointsArray.innerTemperature.push({
                 x: temp[0].data_id,
-                y: (innerTemperatureCount / (sessionUser.monitors_num - disconnectedMonitors))
+                y: (innerTemperatureCount / temp.length)
             });
             datapointsArray.outerTemperature.push({
                 x: temp[0].data_id,
-                y: (outerTemperatureCount / (sessionUser.monitors_num - disconnectedMonitors))
+                y: (outerTemperatureCount / temp.length)
             });
         }
         disconnectedMonitors = 0;
@@ -335,7 +334,6 @@ function getAverageDataForAllMonitors(data, numOfSamples) {
 }
 
 function calculateStatisticsAndGraphicate(startTimestamp, endTimestamp, monitorSelected) {
-
     if (monitorSelected == "all") {
         /* Sending the GET request to obtain the information */
         let xhr = new XMLHttpRequest();
@@ -348,9 +346,9 @@ function calculateStatisticsAndGraphicate(startTimestamp, endTimestamp, monitorS
             } else {
                 let response = JSON.parse(xhr.responseText);
                 let data = response.body.Items;
-                //TODO: GET THE AVERAGE FOR EACH MEASURE
+                /* Calculate the measures */
                 let datapoints = getAverageDataForAllMonitors(data, numOfSamples);
-                //TODO: FILL THE DATA POINTS
+                /* Adjust all in order to draw the chart */
                 luminosity_datapoints = datapoints.luminosity;
                 inner_temperature_datapoints = datapoints.innerTemperature;
                 outer_temperature_datapoints = datapoints.outerTemperature;
@@ -362,11 +360,23 @@ function calculateStatisticsAndGraphicate(startTimestamp, endTimestamp, monitorS
                 inner_humidity.dataPoints = inner_humidity_datapoints;
                 outer_humidity.dataPoints = outer_humidity_datapoints;
                 chart.data = [luminosity, inner_temperature, outer_temperature, inner_humidity, outer_humidity];
+                chart.options.title.text = getTitle(startTimestamp, endTimestamp, timeMeasure);
                 chart.options.axisX.valueFormatString = format;
-                chart.options.axisX.intervalType  = interval;
+                chart.options.axisX.intervalType = interval;
                 chart.options.axisX.intervalType = intervalType;
-                //TODO: DRAW CHART
-                chart.render();
+                chart.options.axisX.minimum = startTimestamp;
+                chart.options.axisX.maximum = endTimestamp;
+                /* Draw the chart */
+                try{
+                    chart.render();
+                } catch(e) {
+                    errorDiv.innerHTML = `<h2 class="m-auto">No hay datos de ${getTitle(startTimestamp, endTimestamp, timeMeasure)} aún.</h2>`
+                    errorDiv.style.visibility = "visible";
+                }
+                
+                
+
+
             }
         }
         xhr.send();
@@ -380,6 +390,7 @@ function calculateStatisticsAndGraphicate(startTimestamp, endTimestamp, monitorS
 }
 
 function init() {
+    errorDiv.style.visibility = "hidden";
     updateHTML(sessionUser);
     calculateEPOCHRange(timeMeasure);
     monitorSelected = getMonitorSelected();
@@ -387,6 +398,7 @@ function init() {
 }
 
 function customQuery(evt) {
+    errorDiv.style.visibility = "hidden";
     recalculateEPOCHRange();
     monitorSelected = getMonitorSelected();
     calculateStatisticsAndGraphicate(startTimestamp, endTimestamp, monitorSelected);

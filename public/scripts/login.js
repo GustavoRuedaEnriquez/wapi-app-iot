@@ -6,8 +6,8 @@ let dummyUser = {
     user_id: 1,
     name: "Salvador Cortez",
     network_id: 1,
-    monitors_num: 4,
-    sample_frequency: 720
+    monitors_num: 3,
+    sample_frequency: 420
 
 };
 
