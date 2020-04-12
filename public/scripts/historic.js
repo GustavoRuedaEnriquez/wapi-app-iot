@@ -222,6 +222,88 @@ function recalculateEPOCHRange() {
     calculateEPOCHRange(timeMeasure);
 }
 
+function getPreviousTimestamps(timeMeasure) {
+    let currentStart = moment(startTimestamp);
+    let currentEnd   = moment(endTimestamp);
+    switch (timeMeasure) {
+        case "day":
+            currentStart.subtract(1, 'days');
+            currentEnd.subtract(1,'days');
+            //console.log(currentStart.startOf('day').format());
+            //console.log(currentStart.endOf('day').format());
+            startTimestamp = currentStart.startOf('day').valueOf();
+            endTimestamp   = currentStart.endOf('day').valueOf();
+            break;
+        case "week":
+            currentStart.subtract(1, 'weeks');
+            currentEnd.subtract(1,'weeks');
+            //console.log(currentStart.startOf('week').format());
+            //console.log(currentStart.endOf('week').format());
+            startTimestamp = currentStart.startOf('week').valueOf();
+            endTimestamp   = currentStart.endOf('week').valueOf();
+            break;
+        case "month":
+            currentStart.subtract(1, 'months');
+            currentEnd.subtract(1,'months');
+            //console.log(currentStart.startOf('month').format());
+            //console.log(currentStart.endOf('month').format());
+            startTimestamp = currentStart.startOf('month').valueOf();
+            endTimestamp   = currentStart.endOf('month').valueOf();
+            break;
+        case "year":
+            currentStart.subtract(1, 'years');
+            currentEnd.subtract(1,'years');
+            //console.log(currentStart.startOf('year').format());
+            //console.log(currentStart.endOf('year').format());
+            startTimestamp = currentStart.startOf('year').valueOf();
+            endTimestamp   = currentStart.endOf('year').valueOf();
+            break;
+        default:
+            break;
+    }
+}
+
+function getNextTimestamps(timeMeasure) {
+    let currentStart = moment(startTimestamp);
+    let currentEnd   = moment(endTimestamp);
+    switch (timeMeasure) {
+        case "day":
+            currentStart.add(1, 'days');
+            currentEnd.add(1,'days');
+            console.log(currentStart.startOf('day').format());
+            console.log(currentStart.endOf('day').format());
+            startTimestamp = currentStart.startOf('day').valueOf();
+            endTimestamp   = currentStart.endOf('day').valueOf();
+            break;
+        case "week":
+            currentStart.add(1, 'weeks');
+            currentEnd.add(1,'weeks');
+            //console.log(currentStart.startOf('week').format());
+            //console.log(currentStart.endOf('week').format());
+            startTimestamp = currentStart.startOf('week').valueOf();
+            endTimestamp   = currentStart.endOf('week').valueOf();
+            break;
+        case "month":
+            currentStart.add(1, 'months');
+            currentEnd.add(1,'months');
+            //console.log(currentStart.startOf('month').format());
+            //console.log(currentStart.endOf('month').format());
+            startTimestamp = currentStart.startOf('month').valueOf();
+            endTimestamp   = currentStart.endOf('month').valueOf();
+            break;
+        case "year":
+            currentStart.add(1, 'years');
+            currentEnd.add(1,'years');
+            //console.log(currentStart.startOf('year').format());
+            //console.log(currentStart.endOf('year').format());
+            startTimestamp = currentStart.startOf('year').valueOf();
+            endTimestamp   = currentStart.endOf('year').valueOf();
+            break;
+        default:
+            break;
+    }
+}
+
 function getMonitorSelected() {
     let select = document.getElementById("monitors");
     return select.options[select.selectedIndex].value;
@@ -367,14 +449,14 @@ function calculateStatisticsAndGraphicate(startTimestamp, endTimestamp, monitorS
                 chart.options.axisX.minimum = startTimestamp;
                 chart.options.axisX.maximum = endTimestamp;
                 /* Draw the chart */
-                try{
+                try {
                     chart.render();
-                } catch(e) {
+                } catch (e) {
                     errorDiv.innerHTML = `<h2 class="m-auto">No hay datos de ${getTitle(startTimestamp, endTimestamp, timeMeasure)} aún.</h2>`
                     errorDiv.style.visibility = "visible";
                 }
-                
-                
+
+
 
 
             }
@@ -400,6 +482,20 @@ function init() {
 function customQuery(evt) {
     errorDiv.style.visibility = "hidden";
     recalculateEPOCHRange();
+    monitorSelected = getMonitorSelected();
+    calculateStatisticsAndGraphicate(startTimestamp, endTimestamp, monitorSelected);
+}
+
+function previousDate(evt) {
+    errorDiv.style.visibility = "hidden";
+    getPreviousTimestamps(timeMeasure);
+    monitorSelected = getMonitorSelected();
+    calculateStatisticsAndGraphicate(startTimestamp, endTimestamp, monitorSelected);
+}
+
+function nextDate(evt) {
+    errorDiv.style.visibility = "hidden";
+    getNextTimestamps(timeMeasure);
     monitorSelected = getMonitorSelected();
     calculateStatisticsAndGraphicate(startTimestamp, endTimestamp, monitorSelected);
 }
