@@ -3,6 +3,7 @@
 let sessionUser = JSON.parse(sessionStorage.getItem("session-user"));
 let errorDiv = document.getElementById("error-message");
 
+let currentTimestamp = moment().valueOf();
 let timeMeasure = "day";
 let monitorSelected = "all";
 let start = 0;
@@ -91,7 +92,8 @@ let outer_humidity = {
 }
 let chart = new CanvasJS.Chart("chartContainer", {
     title: {
-        text: "Chart"
+        text: "Chart",
+        fontFamily : "Poppins"
     },
 
     toolTip: {
@@ -173,8 +175,8 @@ function updateHTML(sessionUser) {
 }
 
 function calculateEPOCHRange(timeMeasure) {
-    start = moment().startOf(timeMeasure);
-    end = moment().endOf(timeMeasure);
+    start = moment(currentTimestamp).startOf(timeMeasure);
+    end = moment(currentTimestamp).endOf(timeMeasure);
     startTimestamp = start.valueOf();
     endTimestamp = end.valueOf();
     /* Recalculate intervals, formats and number of samples */
@@ -261,6 +263,7 @@ function getPreviousTimestamps(timeMeasure) {
         default:
             break;
     }
+    currentTimestamp = startTimestamp.valueOf();
 }
 
 function getNextTimestamps(timeMeasure) {
@@ -302,6 +305,7 @@ function getNextTimestamps(timeMeasure) {
         default:
             break;
     }
+    currentTimestamp = startTimestamp.valueOf();
 }
 
 function getMonitorSelected() {
@@ -419,7 +423,7 @@ function calculateStatisticsAndGraphicate(startTimestamp, endTimestamp, monitorS
     if (monitorSelected == "all") {
         /* Sending the GET request to obtain the information */
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', `${AWS_BASE_URL}/data/network/${sessionUser.network_id}?start=${startTimestamp}&end=${endTimestamp}`);
+        xhr.open('GET', `${AWS_BASE_URL}/data/network/${sessionUser.network_id}?start=${startTimestamp}&end=${endTimestamp}&monitor=null`);
         xhr.onload = () => {
             if (xhr.status != 200) {
                 let response = JSON.parse(xhr.responseText);
@@ -455,19 +459,53 @@ function calculateStatisticsAndGraphicate(startTimestamp, endTimestamp, monitorS
                     errorDiv.innerHTML = `<h2 class="m-auto">No hay datos de ${getTitle(startTimestamp, endTimestamp, timeMeasure)} aún.</h2>`
                     errorDiv.style.visibility = "visible";
                 }
-
-
-
-
             }
         }
         xhr.send();
 
     } else {
-        //TODO: GET STATS FROM DB
-        //TODO: GET THE AVERAGE FOR EACH MEASURE
-        //TODO: FILL THE DATA POINTS
-        //TODO: DRAW CHART
+        /* Sending the GET request to obtain the information */
+        let xhr = new XMLHttpRequest();
+        console.log(`${AWS_BASE_URL}/data/network/${sessionUser.network_id}?start=${startTimestamp}&end=${endTimestamp}&monitor=${monitorSelected}`);
+        xhr.open('GET', `${AWS_BASE_URL}/data/network/${sessionUser.network_id}?start=${startTimestamp}&end=${endTimestamp}&monitor=${monitorSelected}`);
+        xhr.onload = () => {
+            if (xhr.status != 200) {
+                let response = JSON.parse(xhr.responseText);
+                //console.log(response);
+                alert(xhr.status + ': ' + xhr.statusText + "/n Un error ha ocurrido, por favor inténtelo después.");
+            } else {
+                let response = JSON.parse(xhr.responseText);
+                let data = response.body.Items;
+                /* Calculate the measures */
+                let datapoints = getAverageDataForAllMonitors(data, numOfSamples);
+                /* Adjust all in order to draw the chart */
+                luminosity_datapoints = datapoints.luminosity;
+                inner_temperature_datapoints = datapoints.innerTemperature;
+                outer_temperature_datapoints = datapoints.outerTemperature;
+                inner_humidity_datapoints = datapoints.innerHumidity;
+                outer_humidity_datapoints = datapoints.outerHumidity;
+                luminosity.dataPoints = luminosity_datapoints;
+                inner_temperature.dataPoints = inner_temperature_datapoints;
+                outer_temperature.dataPoints = outer_temperature_datapoints;
+                inner_humidity.dataPoints = inner_humidity_datapoints;
+                outer_humidity.dataPoints = outer_humidity_datapoints;
+                chart.data = [luminosity, inner_temperature, outer_temperature, inner_humidity, outer_humidity];
+                chart.options.title.text = getTitle(startTimestamp, endTimestamp, timeMeasure);
+                chart.options.axisX.valueFormatString = format;
+                chart.options.axisX.intervalType = interval;
+                chart.options.axisX.intervalType = intervalType;
+                chart.options.axisX.minimum = startTimestamp;
+                chart.options.axisX.maximum = endTimestamp;
+                /* Draw the chart */
+                try {
+                    chart.render();
+                } catch (e) {
+                    errorDiv.innerHTML = `<h2 class="m-auto">No hay datos de ${getTitle(startTimestamp, endTimestamp, timeMeasure)} aún.</h2>`
+                    errorDiv.style.visibility = "visible";
+                }
+            }
+        }
+        xhr.send();
     }
 }
 
