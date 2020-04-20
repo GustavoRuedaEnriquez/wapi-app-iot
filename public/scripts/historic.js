@@ -273,8 +273,6 @@ function getNextTimestamps(timeMeasure) {
         case "day":
             currentStart.add(1, 'days');
             currentEnd.add(1,'days');
-            console.log(currentStart.startOf('day').format());
-            console.log(currentStart.endOf('day').format());
             startTimestamp = currentStart.startOf('day').valueOf();
             endTimestamp   = currentStart.endOf('day').valueOf();
             break;
