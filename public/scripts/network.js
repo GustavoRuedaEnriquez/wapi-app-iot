@@ -43,6 +43,7 @@ function updateHours(sessionUser) {
 
 function fillRows(data) {
     let tableBody = document.getElementById('network-table-body');
+    tableBody.innerHTML = "";
     let tr;
     let th;
     let td;
@@ -52,6 +53,7 @@ function fillRows(data) {
     let outer_temp;
     let inner_humidity;
     let outer_humidity;
+    data = data.filter(x => x !== undefined);
     for (let i = 1; i <= sessionUser.monitors_num; i++) {
         let singleData = data.find(a => a.sensor_id == i);
         if (singleData == undefined) {
@@ -79,31 +81,51 @@ function fillRows(data) {
 
         /* NETWORK STATUS */
         td = document.createElement('td');
+        if (networkStatus == "Desconectado") {
+            td.setAttribute('class', 'table-danger');
+        } else {
+            td.setAttribute('class', 'table-success');
+        }
         td.appendChild(document.createTextNode(`${networkStatus}`));
         tr.append(td);
 
         /* LUMINOSITY */
         td = document.createElement('td');
+        if (luminosity == "-" || luminosity > singleData.optimal_luminosity + singleData.error_luminosity || luminosity < singleData.optimal_luminosity - singleData.error_luminosity) {
+            td.setAttribute('class', 'table-danger');
+        }
         td.appendChild(document.createTextNode(`${luminosity} luxes`));
         tr.append(td);
 
         /* INNER_TEMPERATURE */
         td = document.createElement('td');
+        if (inner_temp == "-" || inner_temp > singleData.optimal_inner_temp + singleData.error_inner_temp || inner_temp < singleData.optimal_inner_temp - singleData.error_inner_temp) {
+            td.setAttribute('class', 'table-danger');
+        }
         td.appendChild(document.createTextNode(`${inner_temp} °C`));
         tr.append(td);
 
         /* OUTER_TEMPERATURE */
         td = document.createElement('td');
+        if (outer_temp == "-" || outer_temp > singleData.optimal_outer_temp + singleData.error_outer_temp || outer_temp < singleData.optimal_outer_temp - singleData.error_outer_temp) {
+            td.setAttribute('class', 'table-danger');
+        }
         td.appendChild(document.createTextNode(`${outer_temp} °C`));
         tr.append(td);
 
         /* INNER_HUMIDITY */
         td = document.createElement('td');
+        if (inner_humidity == "-" || inner_humidity > singleData.optimal_inner_humidity + singleData.error_inner_humidity || inner_humidity < singleData.optimal_inner_humidity - singleData.error_inner_humidity) {
+            td.setAttribute('class', 'table-danger');
+        }
         td.appendChild(document.createTextNode(`${inner_humidity}%`));
         tr.append(td);
 
         /* OUTER_HUMIDITY */
         td = document.createElement('td');
+        if (outer_humidity == "-" || outer_humidity > singleData.optimal_outer_humidity + singleData.error_outer_humidity || outer_humidity < singleData.optimal_outer_humidity - singleData.error_outer_humidity) {
+            td.setAttribute('class', 'table-danger');
+        }
         td.appendChild(document.createTextNode(`${outer_humidity}%`));
         tr.append(td);
 
@@ -112,19 +134,49 @@ function fillRows(data) {
 }
 
 function updateMeasureDate(timestamp) {
-    let message = "-";
-    if(timestamp == undefined) {
+    let span = document.getElementById("capture-date");
+    let message = "Datos no disponibles";
+    if (timestamp == undefined) {
+        span.innerText = message;
         return;
     } else {
-        message = getCompleteDateString(timestamp);
+        message = `Datos capturados ${getCompleteDateString(timestamp)}`;
     }
-    let span = document.getElementById("capture-date");
     span.innerText = message;
 
 }
 
+function updateTableCustom(sessionUser, timestamp) {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', `${AWS_BASE_URL}/data/network/${sessionUser.network_id}/timestamp?epoch=${timestamp}`);
+    xhr.onload = () => {
+        if (xhr.status != 200) {
+            let response = JSON.parse(xhr.responseText);
+            //console.log(response);
+            alert(xhr.status + ': ' + xhr.statusText + "/n Un error ha ocurrido, por favor inténtelo después.");
+        } else {
+            let response = JSON.parse(xhr.responseText);
+            let data = response.body.Items;
+            /* Sort the data */
+            data = sortData(data);
+            /* Fill the rows */
+            fillRows(data);
+            console.log(data);
+            /* Update the meassure date */
+            if (data == undefined || data == [] || data[0] == undefined) {
+                updateMeasureDate(undefined);
+            } else {
+                updateMeasureDate(data[0].data_id);
+            }
+        }
+        let dateInput = document.getElementById('date-input');
+        let today = moment();
+        dateInput.value = "";
+    };
+    xhr.send();
+}
+
 function updateTableLatest(sessionUser) {
-    /* TODO: MAKE THE REQUEST */
     let xhr = new XMLHttpRequest();
     xhr.open('GET', `${AWS_BASE_URL}/data/network/${sessionUser.network_id}/latest?monitorNum=${sessionUser.monitors_num}`);
     xhr.onload = () => {
@@ -143,6 +195,9 @@ function updateTableLatest(sessionUser) {
             updateMeasureDate(data[0].data_id);
 
         }
+        let dateInput = document.getElementById('date-input');
+        let today = moment();
+        dateInput.value = "";
     };
     xhr.send();
 }
@@ -166,6 +221,18 @@ function sortData(array) {
 function init() {
     updateHours(sessionUser);
     updateTableLatest(sessionUser);
+}
+
+function searchLatest(evt) {
+    updateTableLatest(sessionUser);
+
+}
+
+function searchCustom(evt) {
+    let dateInput = document.getElementById('date-input');
+    let hourInput = document.getElementById('hour-input');
+    updateTableCustom(sessionUser, moment(`${dateInput.value} ${hourInput.value}`).valueOf());
+
 }
 
 init();

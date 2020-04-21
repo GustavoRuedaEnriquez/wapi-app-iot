@@ -136,11 +136,11 @@
                       <!-- TO BE FILLED -->
                     </select>
                     <div class="m-auto">
-                      <button class="btn btn-primary" type="submit" form="historic-form" style="margin: auto;">Buscar</button>
+                      <button class="btn btn-primary" type="submit" form="historic-form"  onclick="searchCustom()" style="margin: auto;">Buscar</button>
                     </div>
                   </form>
                   <div class="m-auto">
-                    <button class="btn btn-info" form="historic-form" style="margin: auto; margin-top: 10px;">Buscar últimos datos</button>
+                    <button class="btn btn-info" form="historic-form" onclick="searchLatest()" style="margin: auto; margin-top: 10px;">Buscar últimos datos</button>
                   </div>
                 </div>
             </div>
@@ -148,7 +148,7 @@
     </div>
 
     <div class="date">
-        <strong>*Datos capturados el <span id="capture-date"></span></strong>
+        <strong><span id="capture-date"></span></strong>
     </div>
 
     <script type="text/javascript" src="../scripts/network.js"></script>
