@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+    <script type="text/javascript" src="../scripts/libraries/canvasjs.min.js"></script>
+    <script type="text/javascript" src="../scripts/libraries/moment.min.js"></script>
+    <script type="text/javascript" src="../scripts/libraries/stringUtilities.js"></script>
     <title>Dashboard | WAPI</title>
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
     
@@ -99,11 +102,11 @@
                     <!-- LATEST DATA PART -->
                     <div id="status-data" class="col-5">
                         <h4><strong>Últimos datos</strong></h4>
-                        <p><span class="flaticon-lamp" style="font-size: 25px;"></span>Luminosidad: <strong id="dashboard-latest-luminosity">45 Luxes</strong></p>
-                        <p><span class="flaticon-humidity" style="font-size: 25px;"></span>&nbsp Humedad del suelo: <strong id="dashboard-latest-inner-humidity">82%</strong></p>
-                        <p><span class="flaticon-humidity" style="font-size: 25px;"></span>&nbsp Humedad ambiental: <strong id="dashboard-latest-outer-humidity">82%</strong></p>
-                        <p><span class="flaticon-heat" style="font-size: 25px;"></span>Temp. del suelo: <strong id="dashboard-latest-inner-temperature">24°C</strong></p>
-                        <p><span class="flaticon-heat" style="font-size: 25px;"></span>Temp. ambiental: <strong id="dashboard-latest-outer-temperature">30°C</strong></p>
+                        <p><span class="flaticon-lamp" style="font-size: 25px;"></span>Luminosidad: <strong><span id="dashboard-latest-luminosity"></span> Luxes</strong></p>
+                        <p><span class="flaticon-humidity" style="font-size: 25px;"></span>&nbsp Humedad del suelo: <strong><span id="dashboard-latest-inner-humidity"></span>%</strong></p>
+                        <p><span class="flaticon-humidity" style="font-size: 25px;"></span>&nbsp Humedad ambiental: <strong><span id="dashboard-latest-outer-humidity"></span>%</strong></p>
+                        <p><span class="flaticon-heat" style="font-size: 25px;"></span>Temp. del suelo: <strong><span id="dashboard-latest-inner-temperature"></span>°C</strong></p>
+                        <p><span class="flaticon-heat" style="font-size: 25px;"></span>Temp. ambiental: <strong><span id="dashboard-latest-outer-temperature"></span>°C</strong></p>
                     </div>
                     <!-- END OF LATEST DATA PART -->
                 </div>
@@ -156,7 +159,7 @@
 
         <!-- MEASURES DATE -->
         <div class="row m-auto ftco-animate" style="padding-bottom: 100px;">
-            <p>*Datos <strong>promediados</strong> obtenidos el &nbsp<p id="measure-date">10 de Abril a las 10:34:00</p></p>
+            <p>*Datos <strong>promediados</strong> obtenidos el &nbsp<p id="measure-date"></p></p>
         </div>
         <!-- END OF MEASURES DATE-->
     </div>
@@ -167,6 +170,8 @@
         &nbsp
     </footer>
     <!-- END OF FOOTER -->
+
+    <script type="text/javascript" src="../scripts/dashboard.js"></script>
 
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>

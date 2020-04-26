@@ -54,6 +54,8 @@ function fillRows(data) {
     let inner_humidity;
     let outer_humidity;
     data = data.filter(x => x !== undefined);
+    let bottom = moment(data[0].data_id).subtract(10, 'minutes').valueOf();
+    data = data.filter(x => x.data_id >= bottom);
     for (let i = 1; i <= sessionUser.monitors_num; i++) {
         let singleData = data.find(a => a.sensor_id == i);
         if (singleData == undefined) {
@@ -143,7 +145,6 @@ function updateMeasureDate(timestamp) {
         message = `Datos capturados ${getCompleteDateString(timestamp)}`;
     }
     span.innerText = message;
-
 }
 
 function updateTableCustom(sessionUser, timestamp) {
