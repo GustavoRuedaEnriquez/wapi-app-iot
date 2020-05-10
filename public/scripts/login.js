@@ -1,29 +1,34 @@
 'use strict'
 
-let dummyUser = {
-
-    id: 1,
-    user_id: 1,
-    name: "Salvador Cortez",
-    network_id: 1,
-    monitors_num: 3,
-    sample_frequency: 420
-
-};
+const AWS_BASE_URL = "https://cyt189a497.execute-api.us-east-1.amazonaws.com/prod";
 
 function logIn(evt) {
-    let email = document.querySelector("#email").value;
+    let username = document.querySelector("#username").value;
     let password = document.querySelector("#password").value;
-    let str = JSON.stringify({
-        'email': email,
-        'password': password
-    });
-    
-    if(document.querySelectorAll("input:invalid").length == 0){
-            /* PETITION PART */
-            sessionStorage.setItem("session-user", JSON.stringify(dummyUser));
-            window.location.href = "dashboard.html";
-            /*****************/
+    if (document.querySelectorAll("input:invalid").length == 0) {
+        /* PETITION PART */
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', `${AWS_BASE_URL}/users/name/${username}`);
+        xhr.onload = () => {
+            let response = JSON.parse(xhr.responseText);
+            if (xhr.status != 200) {
+                alert("Credenciales inválidas.");
+            } else {
+                if(response.Count == 0) {
+                    alert("Credenciales inválidas.");
+                } else {
+                    if(response.Items[0].password == password) {
+                        sessionStorage.setItem("session-user", JSON.stringify(response.Items[0]));
+                        window.location.href = "dashboard.html";
+                    } else {
+                        alert("Credenciales inválidas."); 
+                    }
+                }
+                console.log(response);
+            }
+        };
+        xhr.send();
+        /*****************/
     } else {
         alert("Llene todos los campos correctamente.");
     }
