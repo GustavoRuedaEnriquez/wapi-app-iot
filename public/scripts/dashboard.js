@@ -1,6 +1,6 @@
 'use strict'
 
-let sessionUser = JSON.parse(sessionStorage.getItem("session-user"));
+let sessionUser = null;
 let avgLuminosity = 0;
 let avgInnerTemp = 0;
 let avgOuterTemp = 0;
@@ -14,8 +14,6 @@ let sensorsWithInnerTemp = [];
 let sensorsWithOuterTemp = [];
 let sensorsWithInnerHumi = [];
 let sensorsWithOuterHumi = [];
-
-const AWS_BASE_URL = "https://cyt189a497.execute-api.us-east-1.amazonaws.com/prod";
 
 function sortData(array) {
     let temp = [];
@@ -32,7 +30,7 @@ function sortData(array) {
         }
         temp.push(aux);
     }
-    
+
     let bottom = moment(temp[0].data_id).subtract(10, 'minutes').valueOf();
     temp = temp.filter(x => x !== undefined);
     temp = temp.filter(x => x.data_id >= bottom);
@@ -81,23 +79,23 @@ function updateAverages(data, sessionUser) {
             sumInnerHumi += data[i].inner_humidity;
             sumOuterHumi += data[i].outer_humidity;
 
-            if(data[i].luminosity < (data[i].optimal_luminosity - data[i].error_luminosity) ||  data[i].luminosity > (data[i].optimal_luminosity + data[i].error_luminosity)) {
+            if (data[i].luminosity < (data[i].optimal_luminosity - data[i].error_luminosity) || data[i].luminosity > (data[i].optimal_luminosity + data[i].error_luminosity)) {
                 sensorsWithBadLuminosity.push(i + 1);
             }
-            
-            if(data[i].inner_temp < (data[i].optimal_inner_temp - data[i].error_inner_temp) ||  data[i].inner_temp > (data[i].optimal_inner_temp + data[i].error_inner_temp)) {
+
+            if (data[i].inner_temp < (data[i].optimal_inner_temp - data[i].error_inner_temp) || data[i].inner_temp > (data[i].optimal_inner_temp + data[i].error_inner_temp)) {
                 sensorsWithInnerTemp.push(i + 1);
             }
-            
-            if(data[i].outer_temp < (data[i].optimal_outer_temp - data[i].error_outer_temp) ||  data[i].outer_temp > (data[i].optimal_outer_temp + data[i].error_outer_temp)) {
+
+            if (data[i].outer_temp < (data[i].optimal_outer_temp - data[i].error_outer_temp) || data[i].outer_temp > (data[i].optimal_outer_temp + data[i].error_outer_temp)) {
                 sensorsWithOuterTemp.push(i + 1);
             }
 
-            if(data[i].inner_humidity < (data[i].optimal_inner_humidity - data[i].error_inner_humidity) ||  data[i].inner_humidity > (data[i].optimal_inner_humidity + data[i].error_inner_humidity)) {
+            if (data[i].inner_humidity < (data[i].optimal_inner_humidity - data[i].error_inner_humidity) || data[i].inner_humidity > (data[i].optimal_inner_humidity + data[i].error_inner_humidity)) {
                 sensorsWithInnerHumi.push(i + 1);
             }
 
-            if(data[i].outer_humidity < (data[i].optimal_outer_humidity - data[i].error_outer_temp) ||  data[i].outer_humidity > (data[i].optimal_outer_humidity + data[i].error_outer_temp)) {
+            if (data[i].outer_humidity < (data[i].optimal_outer_humidity - data[i].error_outer_temp) || data[i].outer_humidity > (data[i].optimal_outer_humidity + data[i].error_outer_temp)) {
                 sensorsWithOuterHumi.push(i + 1);
             }
         }
@@ -111,11 +109,11 @@ function updateAverages(data, sessionUser) {
         avgOuterHumi = 0;
         updateMeasureDate(undefined);
     } else {
-        avgLuminosity = sumLuminosity / (sessionUser.monitors_num -  undefinedSensors);
-        avgInnerTemp = sumInnerTemp / (sessionUser.monitors_num -  undefinedSensors);
-        avgOuterTemp = sumOuterTemp / (sessionUser.monitors_num -  undefinedSensors);
-        avgInnerHumi = sumInnerHumi / (sessionUser.monitors_num -  undefinedSensors);
-        avgOuterHumi = sumOuterHumi / (sessionUser.monitors_num -  undefinedSensors);
+        avgLuminosity = sumLuminosity / (sessionUser.monitors_num - undefinedSensors);
+        avgInnerTemp = sumInnerTemp / (sessionUser.monitors_num - undefinedSensors);
+        avgOuterTemp = sumOuterTemp / (sessionUser.monitors_num - undefinedSensors);
+        avgInnerHumi = sumInnerHumi / (sessionUser.monitors_num - undefinedSensors);
+        avgOuterHumi = sumOuterHumi / (sessionUser.monitors_num - undefinedSensors);
         updateMeasureDate(data[0].data_id);
     }
     /* Change the HTML values */
@@ -131,7 +129,7 @@ function fillSuggestions() {
     let statusTitle = document.getElementById("status-title");
     let statusImage = document.getElementById("status-images");
     let count = 0;
-    for(let i = 0; i < sensorsDisconnectedArray.length; i++) {
+    for (let i = 0; i < sensorsDisconnectedArray.length; i++) {
         let p = document.createElement('p');
         let hr = document.createElement('hr');
         p.innerText = `Revisar conexión del sensor ${sensorsDisconnectedArray[i]}`;
@@ -140,7 +138,7 @@ function fillSuggestions() {
         count++;
     }
 
-    for(let i = 0; i < sensorsWithBadLuminosity.length; i++) {
+    for (let i = 0; i < sensorsWithBadLuminosity.length; i++) {
         let p = document.createElement('p');
         let hr = document.createElement('hr');
         p.innerText = `Luminosidad del sensor ${sensorsWithBadLuminosity[i]} anormal.`;
@@ -149,7 +147,7 @@ function fillSuggestions() {
         count++;
     }
 
-    for(let i = 0; i < sensorsWithInnerTemp.length; i++) {
+    for (let i = 0; i < sensorsWithInnerTemp.length; i++) {
         let p = document.createElement('p');
         let hr = document.createElement('hr');
         p.innerText = `Temp. del suelo del sensor ${sensorsWithInnerTemp[i]} anormal.`;
@@ -158,7 +156,7 @@ function fillSuggestions() {
         count++;
     }
 
-    for(let i = 0; i < sensorsWithOuterTemp.length; i++) {
+    for (let i = 0; i < sensorsWithOuterTemp.length; i++) {
         let p = document.createElement('p');
         let hr = document.createElement('hr');
         p.innerText = `Temp. ambiental del sensor ${sensorsWithOuterTemp[i]} anormal.`;
@@ -167,7 +165,7 @@ function fillSuggestions() {
         count++;
     }
 
-    for(let i = 0; i < sensorsWithInnerHumi.length; i++) {
+    for (let i = 0; i < sensorsWithInnerHumi.length; i++) {
         let p = document.createElement('p');
         let hr = document.createElement('hr');
         p.innerText = `Humedad del suelo del sensor ${sensorsWithInnerHumi[i]} anormal.`;
@@ -176,7 +174,7 @@ function fillSuggestions() {
         count++;
     }
 
-    for(let i = 0; i < sensorsWithOuterHumi.length; i++) {
+    for (let i = 0; i < sensorsWithOuterHumi.length; i++) {
         let p = document.createElement('p');
         let hr = document.createElement('hr');
         p.innerText = `Humedad ambiental del sensor ${sensorsWithOuterHumi[i]} anormal.`;
@@ -185,17 +183,17 @@ function fillSuggestions() {
         count++;
     }
 
-    if(count >= 0 && count <= 5) {
+    if (count >= 0 && count <= 5) {
         statusTitle.innerText = "¡Todo en orden!";
         statusImage.src = "./images/WAPI-dashboard-ok.svg";
     }
 
-    if(count >= 6 && count <= 25) {
+    if (count >= 6 && count <= 25) {
         statusTitle.innerText = "Precaución, sugerimos actuar";
         statusImage.src = "./images/WAPI-dashboard-warning.svg";
     }
 
-    if(count >= 26 || sensorsDisconnectedArray.length >= (sessionUser.monitors_num * 0.30)) {
+    if (count >= 26 || sensorsDisconnectedArray.length >= (sessionUser.monitors_num * 0.30)) {
         statusTitle.innerText = "Tomar acción de inmediato.";
         statusImage.src = "./images/WAPI-dashboard-error.svg";
     }
@@ -235,8 +233,15 @@ function updateTableLatest(sessionUser) {
     xhr.send();
 }
 
-function init() {
-    updateTableLatest(sessionUser);
+async function init() {
+    try {
+        sessionUser = await validateLogin();
+        updateTableLatest(sessionUser);
+        $('#ftco-loader').removeClass('show');
+    } catch (error) {
+        alert(error);
+        window.location.href = "login.html";
+    }
 }
 
-init()
+init();

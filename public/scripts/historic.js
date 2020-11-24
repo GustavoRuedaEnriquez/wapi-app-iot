@@ -1,6 +1,6 @@
 'use strict'
 
-let sessionUser = JSON.parse(sessionStorage.getItem("session-user"));
+let sessionUser = null;
 let errorDiv = document.getElementById("error-message");
 
 let currentTimestamp = moment().valueOf();
@@ -13,7 +13,6 @@ let endTimestamp = 0;
 let numOfSamples = 0
 let interval = 0;
 
-const AWS_BASE_URL = "https://cyt189a497.execute-api.us-east-1.amazonaws.com/prod";
 const LUMINOSITY_COLOR = "#039114";
 const TEMP_OUTER_COLOR = "#d91d0f";
 const TEMP_INNER_COLOR = "#d67922";
@@ -507,12 +506,19 @@ function calculateStatisticsAndGraphicate(startTimestamp, endTimestamp, monitorS
     }
 }
 
-function init() {
-    errorDiv.style.visibility = "hidden";
-    updateHTML(sessionUser);
-    calculateEPOCHRange(timeMeasure);
-    monitorSelected = getMonitorSelected();
-    calculateStatisticsAndGraphicate(startTimestamp, endTimestamp, monitorSelected);
+async function init() {
+    try {
+        sessionUser = await validateLogin();
+        errorDiv.style.visibility = "hidden";
+        updateHTML(sessionUser);
+        calculateEPOCHRange(timeMeasure);
+        monitorSelected = getMonitorSelected();
+        calculateStatisticsAndGraphicate(startTimestamp, endTimestamp, monitorSelected);
+        $('#ftco-loader').removeClass('show');
+    } catch (error) {
+        alert(error);
+        window.location.href = "login.html";
+    }
 }
 
 function customQuery(evt) {

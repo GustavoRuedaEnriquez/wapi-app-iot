@@ -1,8 +1,6 @@
 'use strict'
 
-let sessionUser = JSON.parse(sessionStorage.getItem("session-user"));
-
-const AWS_BASE_URL = "https://cyt189a497.execute-api.us-east-1.amazonaws.com/prod";
+let sessionUser = null;
 
 function updateHours(sessionUser) {
     let hours = 0;
@@ -219,21 +217,26 @@ function sortData(array) {
     return temp;
 }
 
-function init() {
-    updateHours(sessionUser);
-    updateTableLatest(sessionUser);
+async function init() {
+    try {
+        sessionUser = await validateLogin();
+        updateHours(sessionUser);
+        updateTableLatest(sessionUser);
+        $('#ftco-loader').removeClass('show');
+    } catch (error) {
+        alert(error);
+        window.location.href = "login.html";
+    }
 }
 
 function searchLatest(evt) {
     updateTableLatest(sessionUser);
-
 }
 
 function searchCustom(evt) {
     let dateInput = document.getElementById('date-input');
     let hourInput = document.getElementById('hour-input');
     updateTableCustom(sessionUser, moment(`${dateInput.value} ${hourInput.value}`).valueOf());
-
 }
 
 init();

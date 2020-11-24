@@ -6,31 +6,28 @@ function logIn(evt) {
     let username = document.querySelector("#username").value;
     let password = document.querySelector("#password").value;
     if (document.querySelectorAll("input:invalid").length == 0) {
-        /* PETITION PART */
+        /* REQUEST PART */
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', `${AWS_BASE_URL}/users/name/${username}`);
+        xhr.open('POST', `${AWS_BASE_URL}/auth/login`);
         xhr.onload = () => {
             let response = JSON.parse(xhr.responseText);
-            if (xhr.status != 200) {
-                alert("Credenciales inválidas.");
+            if (xhr.status != 200 || response.error) {
+                alert("Credenciales inválidas. " + response.error);
             } else {
-                if(response.Count == 0) {
-                    alert("Credenciales inválidas.");
+                if (response.access_token) {
+                    sessionStorage.setItem("session-user", response.access_token);
+                    window.location.href = "dashboard.html";
                 } else {
-                    if(response.Items[0].password == password) {
-                        sessionStorage.setItem("session-user", JSON.stringify(response.Items[0]));
-                        window.location.href = "dashboard.html";
-                    } else {
-                        alert("Credenciales inválidas."); 
-                    }
+                    alert("Error al procesar las credenciales.");
                 }
-                console.log(response);
             }
         };
-        xhr.send();
+        xhr.send(JSON.stringify({
+            username: username,
+            password: password
+        }));
         /*****************/
     } else {
         alert("Llene todos los campos correctamente.");
     }
-
 }

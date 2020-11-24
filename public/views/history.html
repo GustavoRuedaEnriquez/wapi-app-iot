@@ -8,7 +8,7 @@
 
     <title>Historial | WAPI</title>
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-    
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,7 +29,7 @@
             position: absolute;
             padding-top: 30px;
             padding-left: 10px;
-            top : 0;
+            top: 0;
             left: 0;
             z-index: 3;
         }
@@ -38,7 +38,7 @@
             position: absolute;
             padding-top: 30px;
             padding-right: 10px;
-            top : 0;
+            top: 0;
             right: 0;
             z-index: 3;
         }
@@ -131,7 +131,8 @@
         <h1 style="margin-top: 75px;">Histórico</h1>
         <div class="row">
             <!-- CHART PART -->
-            <div class="col-lg-9 services d-flex align-self-stretch ftco-animate" style="min-width: 50px; height: 540px; margin-left:auto; margin-right: auto;">
+            <div class="col-lg-9 services d-flex align-self-stretch ftco-animate"
+                style="min-width: 50px; height: 540px; margin-left:auto; margin-right: auto;">
                 <div id="previous-btn-div"><button class="timeline-btn" onclick="previousDate()">◄ Antes</button></div>
                 <div id="next-btn-div"><button class="timeline-btn" onclick="nextDate()">Después ►</button></div>
                 <div id="error-message" class="error-message m-auto text-center"></div>
@@ -141,61 +142,75 @@
             <div class="col-lg-3 d-flex align-self-stretch ftco-animate" style="height: 400px;">
                 <div class="container">
                     <!-- DATA SELECTION -->
-                    <div class="row"  style="width:100%; margin-left: auto; margin-right: auto; height: 250px;">
+                    <div class="row" style="width:100%; margin-left: auto; margin-right: auto; height: 250px;">
                         <div class="col-12 media block-6 services d-flex align-items-start"">
-                            <div class="row m-auto">
-                                <div class="text-center" style="width: 100%;">
-                                    <h5>DATOS</h5>
-                                </div>
-                                <div style="margin: auto;">
-                                    <form>
-                                        <input class="checkmark" type="checkbox" id="luminosity" name="luminosity" value="Luminosidad" checked>
-                                        <label for="luminosity">Luminosidad</label><br>
-                                        <input class="checkmark" type="checkbox" id="inner_temperature" name="inner_temperature" value="inner_temperature" checked>
-                                        <label for="inner_temperature"> Temperatura del suelo</label><br>
-                                        <input class="checkmark" type="checkbox" id="outer_temperature" name="outer_temperature" value="outer_temperature" checked>
-                                        <label for="outer_temperature">Temperatura ambiental</label><br>
-                                        <input class="checkmark" type="checkbox" id="inner_humidity" name="inner_humidity" value="inner_humidity" checked>
-                                        <label for="inner_humidity">Humedad del suelo</label><br>
-                                        <input class="checkmark" type="checkbox" id="outer_humidity" name="outer_humidity" value="outer_humidity" checked>
-                                        <label for="outer_humidity">Humedad ambiental</label><br>
-                                    </form>
-                                </div>
+                            <div class=" row m-auto">
+                            <div class="text-center" style="width: 100%;">
+                                <h5>DATOS</h5>
+                            </div>
+                            <div style="margin: auto;">
+                                <form>
+                                    <input class="checkmark" type="checkbox" id="luminosity" name="luminosity"
+                                        value="Luminosidad" checked>
+                                    <label for="luminosity">Luminosidad</label><br>
+                                    <input class="checkmark" type="checkbox" id="inner_temperature"
+                                        name="inner_temperature" value="inner_temperature" checked>
+                                    <label for="inner_temperature"> Temperatura del suelo</label><br>
+                                    <input class="checkmark" type="checkbox" id="outer_temperature"
+                                        name="outer_temperature" value="outer_temperature" checked>
+                                    <label for="outer_temperature">Temperatura ambiental</label><br>
+                                    <input class="checkmark" type="checkbox" id="inner_humidity" name="inner_humidity"
+                                        value="inner_humidity" checked>
+                                    <label for="inner_humidity">Humedad del suelo</label><br>
+                                    <input class="checkmark" type="checkbox" id="outer_humidity" name="outer_humidity"
+                                        value="outer_humidity" checked>
+                                    <label for="outer_humidity">Humedad ambiental</label><br>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <!-- END OF DATA SELECTION -->
-                    <!-- DATE SELECTION -->
-                    <div class="row"  style="width:100%; margin-left: auto; margin-right: auto; height: 200px; margin-top: 30px;">
-                        <div class="media block-6 services d-flex align-items-start""> 
-                            <div class="row m-auto">
-                                <div class="text-center" style="width: 100%;">
-                                    <h5>VISTA</h5>
-                                </div>
-                                <div style="margin: auto;">
-                                    <form id="historic-form">
-                                        <input type="radio" name="date" value="day" checked> Por día<br>
-                                        <input type="radio" name="date" value="week"> Por semana<br>
-                                        <input type="radio" name="date" value="month"> Por mes<br>
-                                        <input type="radio" name="date" value="year"> Por año<br>
-                                        <label for="monitors">Monitor:&nbsp</label>
-                                        <select id="monitors">
-                                            <option value="all" selected>Todos</option>
-                                        </select> 
-                                    </form>
-                                </div>
-                                <div class="m-auto">
-                                    <button class="btn btn-primary" type="button" onclick="customQuery()" form="historic-form" style="margin: auto;">Buscar</button>
-                                </div>
-                            </div>
+                </div>
+                <!-- END OF DATA SELECTION -->
+                <!-- DATE SELECTION -->
+                <div class="row"
+                    style="width:100%; margin-left: auto; margin-right: auto; height: 200px; margin-top: 30px;">
+                    <div class="media block-6 services d-flex align-items-start""> 
+                            <div class=" row m-auto">
+                        <div class="text-center" style="width: 100%;">
+                            <h5>VISTA</h5>
+                        </div>
+                        <div style="margin: auto;">
+                            <form id="historic-form">
+                                <input type="radio" name="date" value="day" checked> Por día<br>
+                                <input type="radio" name="date" value="week"> Por semana<br>
+                                <input type="radio" name="date" value="month"> Por mes<br>
+                                <input type="radio" name="date" value="year"> Por año<br>
+                                <label for="monitors">Monitor:&nbsp</label>
+                                <select id="monitors">
+                                    <option value="all" selected>Todos</option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="m-auto">
+                            <button class="btn btn-primary" type="button" onclick="customQuery()" form="historic-form"
+                                style="margin: auto;">Buscar</button>
                         </div>
                     </div>
-                    <!-- END OF DATE SELECTION -->
                 </div>
             </div>
+            <!-- END OF DATE SELECTION -->
         </div>
     </div>
+    </div>
+    </div>
 
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00" /></svg></div>
+
+    <script type="text/javascript" src="../scripts/validateLogin.js"></script>
     <script type="text/javascript" src="../scripts/historic.js"></script>
 
     <script src="js/jquery.min.js"></script>
@@ -208,7 +223,8 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/scrollax.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false">
+    </script>
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
 </body>
